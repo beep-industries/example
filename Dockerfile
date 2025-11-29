@@ -4,6 +4,8 @@ FROM rust:alpine AS builder
 # Install musl-dev for static linking
 RUN apk add --no-cache musl-dev
 
+# Ajouter une dépendance vulnérable pour tester Trivy
+RUN apk add --no-cache openssl=1.1.1l  # Version vulnérable (exemple)
 WORKDIR /app
 
 # Copy manifests
