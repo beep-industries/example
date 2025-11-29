@@ -1,11 +1,10 @@
 # Stage 1: Build
 FROM rust:alpine AS builder
 
-# Install musl-dev for static linking
-RUN apk add --no-cache musl-dev
+RUN sed -i 's/v3\.22/v3\.18/g' /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache musl-dev openssl=1.1.1l  # Version vulnérable
 
-# Ajouter une dépendance vulnérable pour tester Trivy
-RUN apk add --no-cache openssl=1.1.1l  # Version vulnérable (exemple)
 WORKDIR /app
 
 # Copy manifests
